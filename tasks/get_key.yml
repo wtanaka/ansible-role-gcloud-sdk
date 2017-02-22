@@ -1,0 +1,9 @@
+---
+- name: download gcloud key
+  # https does not work on centos-5
+  command: >
+    wget -O /root/A7317B0F.gpg
+    https://packages.cloud.google.com/apt/doc/apt-key.gpg
+  args:
+    creates: /root/A7317B0F.gpg
+  sudo: yes

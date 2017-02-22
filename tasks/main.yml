@@ -1,0 +1,14 @@
+---
+- include: compat.yml
+
+- include: include_vars.yml
+
+- include: Debian.yml
+  when: ansible_os_family == 'Debian'
+
+- include: RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: install_package_names.yml
+
+- include: install_additional_packages.yml
