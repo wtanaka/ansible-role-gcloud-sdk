@@ -10,9 +10,9 @@ services:
 script:
 - >
   wget -O- bit.ly/ansibletest | env
-  DOCKER_IMAGES="centos:7 debian:7 debian:8
+  DOCKER_IMAGES="centos:7 debian:7 debian:8 debian:stretch
   ubuntu:12.04 ubuntu:14.04 ubuntu:16.04"
-  ANSIBLE_VERSIONS="1.4.4 1.6.1 2.0.0.2 2.1.0.0"
+  ANSIBLE_VERSIONS="1.6.1 2.1.0.0"
   sh -x
 after_failure:
 - cat role-tester-ansible-master/.kitchen/logs/*.log | grep -v '^I, '
