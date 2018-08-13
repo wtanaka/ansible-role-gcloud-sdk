@@ -1,19 +1,27 @@
 language: ruby
 rvm:
 - 2.2
-- 2.1
-- 2.0
 - 1.9.3
+env:
+- DOCKER_IMAGES=centos:7 ANSIBLE_VERSIONS=1.6.1
+- DOCKER_IMAGES=centos:7 ANSIBLE_VERSIONS=2.1.0.0
+- DOCKER_IMAGES=debian:7 ANSIBLE_VERSIONS=1.6.1
+- DOCKER_IMAGES=debian:7 ANSIBLE_VERSIONS=2.1.0.0
+- DOCKER_IMAGES=debian:8 ANSIBLE_VERSIONS=1.6.1
+- DOCKER_IMAGES=debian:8 ANSIBLE_VERSIONS=2.1.0.0
+- DOCKER_IMAGES=debian:stretch ANSIBLE_VERSIONS=1.6.1
+- DOCKER_IMAGES=debian:stretch ANSIBLE_VERSIONS=2.1.0.0
+- DOCKER_IMAGES=ubuntu:12.04 ANSIBLE_VERSIONS=1.6.1
+- DOCKER_IMAGES=ubuntu:12.04 ANSIBLE_VERSIONS=2.1.0.0
+- DOCKER_IMAGES=ubuntu:14.04 ANSIBLE_VERSIONS=1.6.1
+- DOCKER_IMAGES=ubuntu:14.04 ANSIBLE_VERSIONS=2.1.0.0
+- DOCKER_IMAGES=ubuntu:16.04 ANSIBLE_VERSIONS=1.6.1
+- DOCKER_IMAGES=ubuntu:16.04 ANSIBLE_VERSIONS=2.1.0.0
 sudo: false
 services:
 - docker
 script:
-- >
-  wget -O- bit.ly/ansibletest | env
-  DOCKER_IMAGES="centos:7 debian:7 debian:8 debian:stretch
-  ubuntu:12.04 ubuntu:14.04 ubuntu:16.04"
-  ANSIBLE_VERSIONS="1.6.1 2.1.0.0"
-  sh -x
+- wget -O- bit.ly/ansibletest | sh -x
 after_failure:
 - cat role-tester-ansible-master/.kitchen/logs/*.log | grep -v '^I, '
 notifications:
