@@ -19,7 +19,7 @@ Variables
 The full set of configuration options available are visible in
 [defaults/main.yml](defaults/main.yml)
 
-### `additional_package_names`
+### `gcloud_sdk_additional_package_names`
 
 Default: `[]`
 

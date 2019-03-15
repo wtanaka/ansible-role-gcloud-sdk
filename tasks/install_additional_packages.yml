@@ -1,5 +1,5 @@
 ---
-- name: install {{additional_package_names | join(' ')}} with default package manager
+- name: install {{gcloud_sdk_additional_package_names | join(' ')}} with default package manager
   action: "{{backcompat_pkg_mgr}} name={{item}}"
   sudo: yes
   register: result_install_additional
@@ -9,21 +9,21 @@
   retries: 20
   delay: 10
   when: >
-    additional_package_names is defined and
+    gcloud_sdk_additional_package_names is defined and
     (backcompat_pkg_mgr == "yum" or backcompat_pkg_mgr == "apt")
-  with_items: "{{ additional_package_names }}"
+  with_items: "{{ gcloud_sdk_additional_package_names }}"
 
 # Handle dnf case for Fedora
-- name: "check if {{additional_package_names | join(' ')}} exists"
-  command: "rpm -q {{additional_package_names | join(' ')}}"
+- name: "check if {{gcloud_sdk_additional_package_names | join(' ')}} exists"
+  command: "rpm -q {{gcloud_sdk_additional_package_names | join(' ')}}"
   changed_when: False
   ignore_errors: True
   register: package_exists_result
-  when: additional_package_names is defined and backcompat_pkg_mgr == "dnf"
+  when: gcloud_sdk_additional_package_names is defined and backcompat_pkg_mgr == "dnf"
 
 # Use command since dnf was only added as a module in ansible 1.9.0
-- name: install {{additional_package_names | join (' ')}} with dnf
-  command: dnf install -y {{additional_package_names | join(' ')}}
+- name: install {{gcloud_sdk_additional_package_names | join (' ')}} with dnf
+  command: dnf install -y {{gcloud_sdk_additional_package_names | join(' ')}}
   sudo: yes
   register: result_install_additional_dnf
   until: result_install_additional_dnf|success
@@ -32,5 +32,5 @@
   retries: 20
   delay: 10
   when: >
-    additional_package_names is defined and backcompat_pkg_mgr == "dnf" and
+    gcloud_sdk_additional_package_names is defined and backcompat_pkg_mgr == "dnf" and
     package_exists_result|failed
