@@ -1,6 +1,7 @@
 ---
 - name: install {{gcloud_sdk_additional_package_names | join(' ')}} with default package manager
   action: "{{backcompat_pkg_mgr}} name={{item}}"
+  sudo: yes
   register: result_install_additional
   until: result_install_additional|success
   # Workaround https://github.com/ansible/ansible/issues/16868 and
@@ -23,6 +24,7 @@
 # Use command since dnf was only added as a module in ansible 1.9.0
 - name: install {{gcloud_sdk_additional_package_names | join (' ')}} with dnf
   command: dnf install -y {{gcloud_sdk_additional_package_names | join(' ')}}
+  sudo: yes
   register: result_install_additional_dnf
   until: result_install_additional_dnf|success
   # Workaround https://github.com/ansible/ansible/issues/16868 and
