@@ -11,7 +11,7 @@ Example Playbook
 
     - hosts: all
       roles:
-         - role: wtanaka.gcloud-sdk
+         - role: wtanaka.gcloud_sdk
 
 Variables
 ---------
